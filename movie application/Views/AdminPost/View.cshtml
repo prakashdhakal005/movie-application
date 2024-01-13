@@ -1,0 +1,54 @@
+﻿@model movie_application.Models.PostUpdateViewModel
+@{
+}
+<div class="container py-5">
+    <h1>Edit Post</h1>
+    <form method="post" action="Add">
+         <div class="mb-3">
+            <label class="form-label">Movie ID</label>
+            <input type="text" class="form-control" asp-for="ID"  readonly/>
+        </div>
+        <div class="mb-3">
+             <label class="form-label">Movie Title</label>
+             <input type="text" class="form-control" asp-for="MovieTitle" />
+        </div>
+
+        <div class="mb-3">
+             <label class="form-label">Movie Description</label>
+             <input type="text" class="form-control" asp-for="MovieDescription" />
+        </div>
+
+        <div class="mb-3">
+             <label class="form-label">Movie Released Date</label>
+             <input type="date" class="form-control" asp-for="MovieReleasedDate" />
+        </div>
+
+        <div class="mb-3">
+             <label class="form-label">Movie Image URl</label>
+             <input type="text" class="form-control" asp-for="MovieImageUrl" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Movie Video URl</label>
+            <input type="text" class="form-control" asp-for="MovieVideoUrl" />
+        </div>
+
+         <div class="mb-3">
+             <label class="form-label">Published Date</label>
+             <input type="date" class="form-control" asp-for="PublishedDate" />
+         </div>
+
+        <div class="mb-3">
+             <button onclick="popUp()" type="submit" class="btn btn-dark">Submit</button>
+        </div>
+        <div class="mb-3">
+             <button onclick="popUp()" type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="AdminPost">Delete</button>
+        </div>
+    </form>
+    <script>
+        function popUp() {
+            alert("Done Successfully!")
+        }
+    </script>
+    
+</div>

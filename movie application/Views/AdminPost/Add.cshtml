@@ -1,0 +1,69 @@
+﻿@model movie_application.Models.AddPostViewModel
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Add New Post</h1>
+    </div>
+</div>
+<div class="container py-5">
+    <form id="myForm" method="post" action="Add">
+        <div class="mb-3">
+            <label class="form-label">Movie Title</label>
+            <input type="text" class="form-control" asp-for="MovieTitle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Movie Description</label>
+            <input type="text" class="form-control" asp-for="MovieDescription" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Movie Released Date</label>
+            <input type="date" class="form-control" asp-for="MovieReleasedDate" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Movie Image URl</label>
+            <input type="text" class="form-control" asp-for="MovieImageUrl" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Movie Video URl</label>
+            <input type="text" class="form-control" asp-for="MovieVideoUrl"/>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Published Date</label>
+            <input type="date" class="form-control" asp-for="PublishedDate" />
+        </div>
+
+        <div class="mb-3">
+            <button onclick="popUp()" type="submit" class="btn btn-dark">Submit</button>
+            <button onclick="clearForm()"type="button" >Reset</button>
+
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="/AdminPost/PostView" class="btn btn-info btn-block">View Posts</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="/Home/AdminDashbord" class="btn btn-info btn-block">Go To Admin Dashboard</a>
+        </div>
+    </form>
+   
+    <script>
+        function clearForm() {
+           // alert("Submitted Successfully");
+            // Get all input elements in the form
+           var inputs = document.getElementById('myForm').getElementsByTagName('input');
+
+            // Loop through the input elements and clear their values
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type !== 'submit') {
+                    inputs[i].value = '';
+                }
+            }
+        }
+        function popUp() {
+            alert("Submitted Successfully")
+        }
+    </script>
+
+
+</div>

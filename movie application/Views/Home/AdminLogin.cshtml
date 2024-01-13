@@ -1,0 +1,45 @@
+﻿@model movie_application.Models.AdminLoginModel
+@{
+}
+
+<div class="row justify-content-center">
+    <div class="col-5 mt-5">
+        <div class="card login-logout=card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <div>Admin Login</div>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <div class="col-10 my-4">
+                        <form id="account" method="post" >
+                            <h5>Enter a Admin account details to log in.</h5>
+                           <hr />
+                          
+                            <div class="form-floating mb-3">
+                                <input type="string" asp-for="username" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                <label  class="form-label">Admin Username</label>
+                                <span  class="text-danger"></span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="string"  asp-for="password"  class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                                <label  class="form-label">Password</label>
+                                <span  class="text-danger"></span>
+                            </div>
+                        
+                            <div>
+                                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

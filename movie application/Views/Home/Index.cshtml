@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@model List<movie_application.Models.Domain.MoviePost>
+
+@{
+}
+
+<div class="container mt-3">
+    <h2 class="mb-5">latest Movies</h2>
+
+    @foreach (var movie in Model)
+    {
+        <div style="display: none;" id="movieid" class="mt-3">@movie.ID</div>
+        <div class="mt-5">
+            <img src="@movie.MovieImageUrl" alt="Movie Image" class="img-fluid">
+        </div>
+        <h5 class="mt-3">@movie.MovieTitle</h5>
+        <p class="mt-3">@movie.MovieDescription</p>
+        <div class="mt-3">Released on: @movie.MovieReleasedDate.ToShortDateString()</div>
+
+        <div class="container mt-3">
+            <h2>Movie Trailer</h2>
+
+            <div id="videoContainer" class="mt-3">
+                <!-- YouTube Video will be displayed here -->
+                <iframe width="560" height="315" src="@movie.MovieVideoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+
+
+        <div class="mt-3">Post Published on: @movie.PublishedDate.ToShortDateString()</div>
+
+
+        <div class="mb-5">
+            5
+            <a href="#">Rating</a>
+            <a href="#">Comments</a>
+        </div>
+    }
+
+</div>
