@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using movie_application.Data;
 using movie_application.Models;
+using movie_application.Models.Domain;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,13 +23,21 @@ namespace movie_application.Controllers
         
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string searchString)
         {
             var moviePost = await movieDbContext.MoviePosts.ToListAsync();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                moviePost = moviePost.Where(m => m.MovieTitle.Contains(searchString)).ToList();
+            }
             return View(moviePost);
         }
-        
-        public IActionResult AdminLogin()
+
+       
+    
+
+    public IActionResult AdminLogin()
         {
             return View();
 

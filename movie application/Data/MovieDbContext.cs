@@ -9,6 +9,7 @@ namespace movie_application.Data
         {
         }
         public DbSet<MoviePost> MoviePosts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public object MoviePost { get; internal set; }
     }

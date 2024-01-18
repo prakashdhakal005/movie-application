@@ -18,9 +18,13 @@ namespace movie_application.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PostView()
+        public async Task<IActionResult> PostView(string searchString)
         {
             var moviePost =await movieDbContext.MoviePosts.ToListAsync();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                moviePost = moviePost.Where(m => m.MovieTitle.Contains(searchString)).ToList();
+            }
             return View(moviePost);
         }
 
