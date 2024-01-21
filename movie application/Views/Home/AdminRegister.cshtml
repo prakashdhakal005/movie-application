@@ -1,0 +1,72 @@
+﻿
+@model movie_application.Models.AdminRegisterModel
+
+@{
+}
+
+
+<div class="row justify-content-center">
+    <div class="col-5 mt-5">
+        <div class="card login-logout=card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <div>Admin Register</div>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <div class="col-10 my-4">
+                       
+                        <form id="registerForm" method="post" action="Admin">
+                            <h5>Create a new Admin account.</h5>
+                            <hr />
+                  
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="firstname" />
+                                        <label asp-for="FirstName">First Name</label>
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="string" asp-for="LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="lastname" />
+                                        <label asp-for="LastName">Last Name</label>
+                                        <span  class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="string" asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                <label asp-for="Email">Email</label>
+                                <span  class="text-danger"></span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="string" asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                <label asp-for="Password">Password</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="string" asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                <label asp-for="ConfirmPassword">Confirm Password</label>
+                                <span class="text-danger"></span>
+                            </div>
+                            <button onclick="popUp()" id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function popUp() {
+        alert("Admin Registered Successfully")
+    }
+</script>

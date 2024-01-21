@@ -1,0 +1,21 @@
+﻿
+@{
+}
+@model List<movie_application.Models.Domain.Comment>
+<h5>Comments</h5>
+
+
+ @foreach (var movie in Model)
+    {
+        <div style="display: none;" id="movieid" class="mt-3">@movie.ID</div>        
+        <div class="container mt-3">
+        <h5 style="display: none;" class="mt-3">@movie.MovieTitle</h5>
+        <p class="justified-paragraph mt-3 ">User:@movie.username</p>
+        <h5>@movie.text</h5>
+        <div class="mt-3 mb-3">Comment Posted on: @movie.commentDate.ToShortDateString()</div>
+
+           
+
+          
+        </div>
+   }

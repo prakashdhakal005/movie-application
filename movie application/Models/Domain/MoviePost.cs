@@ -14,9 +14,10 @@
         public string MovieVideoUrl { get; set; }
 
         public DateTime PublishedDate { get; set; }
+        public double? averageRating { get; set; }
 
 
-       
+
 
 
     }

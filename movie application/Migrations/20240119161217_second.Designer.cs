@@ -12,8 +12,8 @@ using movie_application.Data;
 namespace movie_application.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20240118161851_five")]
-    partial class five
+    [Migration("20240119161217_second")]
+    partial class second
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace movie_application.Migrations
 
             modelBuilder.Entity("movie_application.Models.Domain.Comment", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MovieTitle")
                         .IsRequired()
@@ -81,9 +79,34 @@ namespace movie_application.Migrations
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<double?>("averageRating")
+                        .HasColumnType("float");
+
                     b.HasKey("ID");
 
                     b.ToTable("MoviePosts");
+                });
+
+            modelBuilder.Entity("movie_application.Models.Domain.Rating", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MovieTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("movie_application.Models.Domain.Tag", b =>

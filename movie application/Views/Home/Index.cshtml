@@ -2,22 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<movie_application.Models.Domain.MoviePost>
+
+@model movie_application.Models.IndexViewModel
 
 @{
 }
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 
 
 
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <style>
-        .link-container a {
-            margin-right: 1cm;
-        }
+       
 
         .justified-paragraph {
             text-align: justify;
@@ -32,8 +29,31 @@
             border-top: 2mm solid #000; /* Adjust color as needed */
             margin: 10px 0; /* Adjust margin as needed */
         }
+      .hide-button{
+          color:red;
+          border:none;
+          padding-left:0;
+          padding-right:0;
+          padding-top:0;
+          padding-bottom:0;
+      }
+       
+      .rating{
+          color:darkgoldenrod;
+      }
       
+
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".hide-button").hide();
+            
+        });
+
+     </script>
+
 
 </head>
 
@@ -41,26 +61,29 @@
 
 <div class="container mt-3">
 
-    <form action="Index" method="get" class="form-inline">
+        <form action="@Url.Action("Index","Home")" methid="post" class="form-inline">
         <div class="form-group">
             <label for="searchString">Search Movie by Title:</label>
             <input type="text" class="form-control" name="searchString" placeholder="Enter movie title">
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-danger">Search</button>
     </form>
 
     <h4 class="mb-5 mt-3">Latest Movies</h4>
 <article>
-    @foreach (var movie in Model)
+    @foreach (var movie in Model.movieData)
     {
         <div style="display: none;" id="movieid" class="mt-3">@movie.ID</div>
-        <div class="text-center mt-5">
-            <img src="@movie.MovieImageUrl" alt="Movie Image" class="img-fluid rounded mx-auto d-block w-50">
+        <div class="mt-5">
+             <img src="@movie.MovieImageUrl" alt="Movie Image" class="img-fluid rounded mx-auto d-block" style="width: 500px; height: 300px;">
         </div>
        
         <div class="container mt-3">
-            <h3 class="mt-3">@movie.MovieTitle</h3>
-            <p class="justified-paragraph mt-3 ">@movie.MovieDescription</p>
+            <h3 class="mt-3">@movie.MovieTitle</h3>     
+                        
+            <p class="justified-paragraph mt-3">@movie.MovieDescription</p>
+                                           
+                    
             <div class="mt-3 mb-3">Released on: @movie.MovieReleasedDate.ToShortDateString()</div>
 
             <h5>Movie Trailer</h5>
@@ -73,70 +96,142 @@
         </div>
 
 
-         
 
 
-        <div class=" container link-container mt-2 mb-5">
+
+          <div class="container mt-2" style="display: flex; gap: 20px;">
           
+            <div class="rating">
             
-           <a href="#">
+                            @movie.averageRating
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                </svg> Rating
-                </a>
+                </svg>
+                Rated
+             
 
-            <a href="/Home/CommentView">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                </svg> Comments
-                </a>
-                <form>
+             </div>
+
+
+              <button class="btn-success" onclick="openCommentView('@movie.MovieTitle')">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16">
+                     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
+                      </svg>
+                  View Comments
+                </button>
+                <input style="display: none;" type="text" name="MovieTitle" value="@movie.MovieTitle" />
+              
+
+               
+                   
+  
+         </div>
+         <div class="container">
+                <form method="post" action="@Url.Action("AddComment","Comment")">
                     <div class="form-group">
                         <label></label>
-                        <textarea class="form-control" rows="3" name="Comment" placeholder="Write your comments"></textarea>
-                        <button class="btn btn-success">Leave a Review</button>
+                        <textarea class="form-control" rows="3" name="text" placeholder="Write your comments"></textarea>
+
+                        <button onclick="popUp()" class="btn btn-success">Leave a Review</button>
+                        <input style="display: none;" type="text" name="MovieTitle" value="@movie.MovieTitle" />
                     </div>
                 </form>
 
+           </div>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        Open Popup
+
+        <div class="container mb-2">        
+
+         <form action="@Url.Action("Rate", "Comment")" method="post">
+        <label for="rating">Rate between 1 to 5:</label>
+        <input type="radio" name="ratingValue" value="1" id="rating1" required />
+        <label for="rating1">1</label>
+        <input type="radio" name="ratingValue" value="2" id="rating2" />
+        <label for="rating2">2</label>
+        <input type="radio" name="ratingValue" value="3" id="rating3" />
+        <label for="rating3">3</label>
+        <input type="radio" name="ratingValue" value="4" id="rating4" />
+        <label for="rating4">4</label>
+        <input type="radio" name="ratingValue" value="5" id="rating5" />
+        <label for="rating5">5</label>
+
+                        <button class="btn btn-success" onclick="popUp()" type="submit">Submit Rating</button>
+             <input style="display: none;" type="text" name="MovieTitle" value="@movie.MovieTitle" />
+         </form>    
+        </div>
+                <hr class="custom-hr">
+
+                <div id="commentView" style="display:none;">    
+                </div>
+
+                <div class="container">
+                <button class="hide-button" style="text-align" onclick="hideCommentView('@movie.MovieTitle')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
+                        </svg>
                     </button>
-                    <a href="#" data-toggle="modal" data-target="#myModal">Open Popup</a>
+                </div>
 
-                    <!-- Popup View -->
-                    <div class="modal" id="myModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+                <div class="comments-container" id="commentsContainer-@movie.MovieTitle">    
+                </div>
+               
+               
+               
 
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Popup View Title</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-
-                                <!-- Modal Body -->
-                                <div class="modal-body">
-                                    <p>This is a simple popup without specific model data.</p>
-                                </div>
-
-                                <!-- Modal Footer (optional) -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-  
-         </div>  
-
-
-       
                 <hr class="custom-hr">
     }
-
-    </article>
+            
+        </article>
 </div>
+
+   
+    <script>
+        function openCommentView(movieTitle) {
+            var containerSelector = "#commentsContainer-" + movieTitle;
+
+            // Make an AJAX request to get comments based on the movie title
+            $.ajax({
+                url: "@Url.Action("GetComments", "Comment")",
+                method: "GET",
+                data: { movieTitle: movieTitle },
+                success: function (data) {
+                    // Append the comments directly below the movie title
+                    var commentsContainer = $(containerSelector);
+                    commentsContainer.html(data);
+                    commentsContainer.show();
+
+                    // Show the comment view
+                    $("#commentView").show();
+                    $(".hide-button").show();
+                   
+                },
+                error: function () {
+                    alert("Error fetching comments.");
+                }
+            });
+        }
+        function hideCommentView(movieTitle) {
+            var containerSelector = "#commentsContainer-" + movieTitle;
+            $(containerSelector).hide();
+            $(".hide-button").hide();
+
+        }
+        function closeCommentView() {
+            $("#commentView").hide();
+            $(".hide-button").hide();
+        }
+    </script>
+
+   <script>
+        function popUp() {
+            alert("Submitted Successfully")
+        }
+   </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+   
 </body>
